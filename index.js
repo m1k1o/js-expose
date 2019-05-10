@@ -78,6 +78,7 @@ function exposeJs(rule, cb, exposeName = 'exposeJs') {
 
     let xhrNode = (node, replace, cb) => {
         let parentNode = node.parentNode
+            parentNode.removeChild(node);
 
         let xhr = new XMLHttpRequest()
         xhr.onload = () => {
@@ -85,7 +86,6 @@ function exposeJs(rule, cb, exposeName = 'exposeJs') {
             script.textContent = replace(xhr.responseText)
             
             parentNode.appendChild(script);
-            parentNode.removeChild(node);
             console.log(exposeName+": replacement done");
             cb()
         }
